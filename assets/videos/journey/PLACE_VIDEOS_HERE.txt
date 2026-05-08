@@ -1,0 +1,13 @@
+Place journey video clips here.
+Expected format: MP4 (H.264) for broadest browser support.
+
+To add a video to any timeline entry, add an object like this
+to the `images` array in journeyData.js:
+
+  { type: "video",
+    src: "assets/videos/journey/your-clip.mp4",
+    caption: "A moment in motion",
+    poster: "assets/images/journey/thumbnail.jpg" }   ← optional thumbnail
+
+The poster image is shown before the video plays.
+If omitted, the browser uses the first frame of the video.

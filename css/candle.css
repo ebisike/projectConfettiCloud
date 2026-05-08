@@ -1,0 +1,401 @@
+/* =============================================
+   CANDLE PAGE -- css/candle.css
+   Dark romantic scene. CSS birthday cake,
+   animated flames, blow-out, smoke, confetti.
+   ============================================= */
+
+/* ---- Page: dark room atmosphere ---- */
+.candle-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #3D1C35 0%, #1A0D14 60%, #0D060A 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---- Back button override for dark page ---- */
+.back-btn--dark {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.back-btn--dark:hover,
+.back-btn--dark:active {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ---- Main content column ---- */
+.candle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-2xl) var(--space-lg);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* ---- Instruction block ---- */
+.candle-instruction {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  animation: fadeInDown 0.6s ease both;
+}
+
+.instruction-script {
+  font-size: var(--text-2xl);
+  color: var(--color-blush);
+  letter-spacing: 0.03em;
+}
+
+.instruction-hint {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-gold-light);
+  letter-spacing: 0.05em;
+}
+
+/* ---- Cake scene ---- */
+.cake-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: scaleIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+.cake-glow {
+  position: absolute;
+  width: 260px;
+  height: 180px;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 180, 50, 0.22), transparent 70%);
+  border-radius: 50%;
+  top: -30px;
+  pointer-events: none;
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { opacity: 0.7; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.1);  }
+}
+
+/* ---- Cake structure ---- */
+.cake {
+  position: relative;   /* positioning context for the candle row */
+  display: inline-block;
+}
+
+/* ---- Cake image ---- */
+.cake-img {
+  display: block;
+  width: min(360px, 88vw);
+  height: auto;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.55));
+}
+
+/* ---- Candles row — absolutely placed on the cake top ---- */
+/*
+  top: controls where on the cake the candles sit.
+       Increase  → candles move down (further into cake).
+       Decrease  → candles move up (above the cake).
+  width: how far the candles spread across the cake top.
+  Adjust both values if you swap the cake image.
+*/
+.candles-row {
+  position: absolute;
+  top: 12%;           /* distance from top of cake image to candle bases */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72%;         /* span of candles across the cake top */
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+/* ---- Single candle ---- */
+.candle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+/* ---- Candle body (the wax) ---- */
+.candle-body {
+  width: 11px;
+  height: 32px;
+  background: linear-gradient(
+    to right,
+    #FFF5E4 0%,
+    #FFE8CC 40%,
+    #FFD9A8 70%,
+    #FFE8CC 100%
+  );
+  border-radius: 3px 3px 2px 2px;
+  border: 1px solid rgba(200, 140, 60, 0.2);
+  position: relative;
+}
+
+.candle-body::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 5px;
+  background: #333;
+  border-radius: 1px;
+}
+
+/* ---- Flame ---- */
+.flame {
+  position: relative;
+  width: 12px;
+  height: 20px;
+  margin-bottom: -1px;
+  background: radial-gradient(
+    ellipse at 50% 75%,
+    #FF8C00 0%,
+    #FFA500 35%,
+    #FFD700 65%,
+    rgba(255, 255, 150, 0.4) 100%
+  );
+  border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
+  transform-origin: bottom center;
+  animation: flicker 0.55s ease-in-out infinite alternate;
+  filter: brightness(1.1);
+}
+
+.flame-inner {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 10px;
+  background: radial-gradient(
+    ellipse at 50% 80%,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 240, 150, 0.6) 50%,
+    transparent 100%
+  );
+  border-radius: 50% 50% 30% 30% / 60% 60% 30% 30%;
+  pointer-events: none;
+}
+
+.flame::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 50, 0.28), transparent 70%);
+  animation: glowPulse 1.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* ---- Flame animations ---- */
+@keyframes flicker {
+  0%   { transform: rotate(-2deg)   scale(1);    filter: brightness(1);    }
+  20%  { transform: rotate(2deg)    scale(1.08); filter: brightness(1.15); }
+  40%  { transform: rotate(-1.5deg) scale(0.94); filter: brightness(0.92); }
+  60%  { transform: rotate(2.5deg)  scale(1.06); filter: brightness(1.08); }
+  80%  { transform: rotate(-1deg)   scale(0.97); filter: brightness(0.97); }
+  100% { transform: rotate(1.5deg)  scale(1.03); filter: brightness(1.05); }
+}
+
+.flame.blown {
+  animation: blowOut 0.4s ease-out forwards !important;
+}
+
+@keyframes blowOut {
+  0%   { transform: scaleY(1)   rotate(0deg);   opacity: 1; }
+  30%  { transform: scaleY(1.3) rotate(18deg);  opacity: 0.8; filter: brightness(1.4); }
+  70%  { transform: scaleY(0.3) rotate(-5deg);  opacity: 0.3; }
+  100% { transform: scaleY(0)   rotate(0deg);   opacity: 0; }
+}
+
+/* ---- Smoke (added by JS after blow) ---- */
+.smoke {
+  width: 4px;
+  height: 0;
+  margin: 0 auto;
+  background: linear-gradient(to top, rgba(200, 200, 200, 0.65), transparent);
+  border-radius: 2px;
+  align-self: center;
+  animation: smokeRise 2s ease-out forwards;
+}
+
+@keyframes smokeRise {
+  0%   { height: 2px;  opacity: 0.7;  transform: scaleX(1); }
+  30%  { height: 22px; opacity: 0.5;  transform: scaleX(1.5); }
+  70%  { height: 36px; opacity: 0.25; transform: scaleX(3); }
+  100% { height: 42px; opacity: 0;    transform: scaleX(4); }
+}
+
+/* (Tier CSS removed — cake is now an image) */
+
+/* ---- Cake image fallback (shown if cake.png is missing) ---- */
+.cake-img-fallback {
+  width: min(360px, 88vw);
+  height: 280px;
+  background: linear-gradient(to bottom, #FFF5F8 0%, #FFD0E4 45%, #FF99BC 100%);
+  border-radius: 50% 50% 6px 6px / 14% 14% 6px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.fallback-emoji {
+  font-size: 5rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+/* ---- Blow button ---- */
+.blow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-2xl);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  min-height: 64px;
+  min-width: 220px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+  animation: btnPulse 2.2s ease-in-out infinite;
+}
+
+.blow-btn:hover,
+.blow-btn:active {
+  transform: scale(1.05);
+}
+
+.blow-btn.blown {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  animation: none;
+  cursor: default;
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(212, 96, 122, 0.7); }
+  50%       { box-shadow: 0 0 0 18px rgba(212, 96, 122, 0);  }
+}
+
+.blow-icon {
+  display: inline-block;
+  font-size: 1.4rem;
+  animation: iconBreathe 2.2s ease-in-out infinite;
+}
+
+.blow-btn.blown .blow-icon {
+  animation: none;
+}
+
+@keyframes iconBreathe {
+  0%, 100% { transform: scale(1)    translateX(0); }
+  50%       { transform: scale(1.25) translateX(3px); }
+}
+
+/* ---- Celebration message ---- */
+.celebration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  animation: scaleIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.celebration-icon {
+  font-size: 3.5rem;
+  animation: anim-float 2.5s ease-in-out infinite;
+  line-height: 1;
+}
+
+.celebration h2 {
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  color: var(--color-gold);
+  text-shadow: 0 0 24px rgba(232, 168, 74, 0.55);
+  font-style: italic;
+}
+
+.celebration-sub {
+  font-size: var(--text-base);
+  color: rgba(240, 184, 200, 0.8);
+  letter-spacing: 0.04em;
+}
+
+/* ---- Confetti ---- */
+.confetti-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  opacity: 0;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0%   { opacity: 1;   transform: translateY(0)     rotate(0deg)   scaleX(1);  }
+  25%  { opacity: 1;                                                             }
+  75%  { opacity: 0.8; transform: translateY(72vh)  rotate(540deg) scaleX(-1); }
+  100% { opacity: 0;   transform: translateY(108vh) rotate(720deg) scaleX(1);  }
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 360px) {
+  .candles-row { gap: 6px; width: 70%; }
+}
+
+@media (min-width: 480px) {
+  .candle-body { height: 36px; }
+  .flame       { height: 22px; width: 13px; }
+  .cake-img    { width: min(420px, 88vw); }
+}
+
+@media (min-width: 768px) {
+  .candle-content { gap: var(--space-2xl); }
+  .cake-img       { width: 460px; }
+  .cake-glow      { width: 420px; height: 240px; }
+}

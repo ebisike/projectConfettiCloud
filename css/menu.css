@@ -1,0 +1,374 @@
+/* =============================================
+   MENU PAGE — css/menu.css
+   Mobile-first. Warm cream, romantic cards.
+   ============================================= */
+
+/* ---- Page shell ---- */
+.menu-page {
+  /* Semi-transparent so the carousel shows through softly */
+  background-color: rgba(255, 248, 243, 0.82);
+  background-image:
+    radial-gradient(ellipse at 12% 38%, rgba(240, 184, 200, 0.22) 0%, transparent 52%),
+    radial-gradient(ellipse at 88% 12%, rgba(201, 178, 232, 0.16) 0%, transparent 48%),
+    radial-gradient(ellipse at 55% 92%, rgba(232, 168, 74,  0.08) 0%, transparent 48%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* z-index: 1 places the page above the carousel (z-index: 0) */
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+/* ---- Page header ---- */
+.menu-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-md) var(--space-xl);
+}
+
+.header-label {
+  display: block;
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 0.04em;
+}
+
+.header-name {
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  font-weight: 700;
+  color: var(--color-deep);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-style: italic;
+}
+
+.header-greeting {
+  margin-top: var(--space-md);
+  font-size: var(--text-base);
+  color: var(--color-text-light);
+  line-height: 1.75;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- Cards section ---- */
+.cards-section {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: var(--space-md) 0 var(--space-3xl);
+}
+
+/* ---- Cards grid — single column on mobile ---- */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ---- Individual card ---- */
+.menu-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    box-shadow var(--transition-base),
+    transform  var(--transition-base),
+    opacity    var(--transition-base);
+  /* Each card sets --card-color and --card-color-light via inline style */
+}
+
+.menu-card:active {
+  transform: translateY(-2px);
+}
+
+/* Coloured stripe at top of card */
+.card-stripe {
+  height: 6px;
+  background: var(--card-color, var(--color-primary));
+  width: 100%;
+  transition:
+    height     var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+/* Inner padding wrapper */
+.card-inner {
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+}
+
+/* Icon circle */
+.card-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--card-color-light, rgba(212, 96, 122, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-xs);
+  /* Spring easing gives a natural bounce on scale */
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.menu-card.is-expanded .card-icon-wrap {
+  transform: scale(1.08);
+}
+
+.card-icon {
+  font-size: 2rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Card title */
+.card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-deep);
+  line-height: 1.2;
+  transition: color var(--transition-base);
+}
+
+/* Sub-label in script font */
+.card-sub {
+  font-size: var(--text-lg);
+  color: var(--card-color, var(--color-primary));
+  letter-spacing: 0.02em;
+}
+
+/* Short teaser always visible */
+.card-teaser {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-top: var(--space-xs);
+}
+
+/* ---- Expandable section ---- */
+.card-expandable {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--transition-slow),
+    opacity            var(--transition-base);
+  width: 100%;
+}
+
+.menu-card.is-expanded .card-expandable {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Single child with overflow:hidden — required for the 0fr→1fr height trick */
+.card-expandable-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.75;
+  padding: var(--space-md) 0 var(--space-md);
+}
+
+/* CTA button inside the card */
+.card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--card-color, var(--color-primary));
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  padding: var(--space-md) var(--space-xl);
+  min-height: 52px;
+  letter-spacing: 0.03em;
+  transition:
+    filter    var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+  margin-top: var(--space-xs);
+}
+
+.card-cta:hover,
+.card-cta:active {
+  filter: brightness(0.88);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ---- Toggle chevron button ---- */
+.card-toggle {
+  margin-top: var(--space-sm);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--card-color-light, rgba(212, 96, 122, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background  var(--transition-base),
+    transform   var(--transition-base);
+  flex-shrink: 0;
+}
+
+.toggle-chevron {
+  font-size: 1.3rem;
+  color: var(--card-color, var(--color-primary));
+  line-height: 1;
+  display: block;
+  transition: transform var(--transition-base);
+  transform: rotate(0deg);
+}
+
+.menu-card.is-expanded .toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.card-toggle:hover {
+  background: var(--card-color-light, rgba(212, 96, 122, 0.18));
+}
+
+/* ---- Footer ---- */
+.menu-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md) var(--space-2xl);
+  color: var(--color-text-light);
+  font-size: var(--text-lg);
+}
+
+/* =============================================
+   HOVER INTERACTIONS — pointer/desktop devices
+   @media (hover: hover) ensures touch devices
+   are never affected by these rules.
+   ============================================= */
+@media (hover: hover) {
+
+  /* Card lifts and gains accent-colour ring */
+  .menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow:
+      0 28px 60px rgba(45, 27, 37, 0.16),
+      0 0 0 2px var(--card-color, var(--color-primary));
+  }
+
+  /* Spotlight effect — dim every card that is NOT hovered */
+  .cards-grid:has(.menu-card:hover) .menu-card:not(:hover) {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+
+  /* Stripe grows and glows with the card's accent colour */
+  .menu-card:hover .card-stripe {
+    height: 10px;
+    box-shadow: 0 4px 18px var(--card-color, var(--color-primary));
+  }
+
+  /* Icon bounces up via the spring cubic-bezier on its transition */
+  .menu-card:hover .card-icon-wrap {
+    transform: scale(1.2);
+  }
+
+  /* Title colour shifts to match the card accent */
+  .menu-card:hover .card-title {
+    color: var(--card-color, var(--color-primary));
+  }
+
+  /* Drop and reveal the hidden description + CTA */
+  .menu-card:hover .card-expandable {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  /* Chevron rotates to signal expanded state */
+  .menu-card:hover .toggle-chevron {
+    transform: rotate(180deg);
+  }
+}
+
+/* =============================================
+   RESPONSIVE — 640px+
+   Two-column (last card centred via grid trick)
+   ============================================= */
+@media (min-width: 640px) {
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  /* Last card (3rd) spans full width if odd number */
+  .menu-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 420px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .card-inner {
+    padding: var(--space-xl) var(--space-lg) var(--space-lg);
+  }
+}
+
+/* =============================================
+   RESPONSIVE — 1024px+
+   Three-column row
+   ============================================= */
+@media (min-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Reset the last-child override from 640px */
+  .menu-card:last-child:nth-child(odd) {
+    grid-column: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .menu-header {
+    padding: var(--space-3xl) var(--space-md) var(--space-2xl);
+  }
+
+  .header-greeting {
+    font-size: var(--text-lg);
+    max-width: 520px;
+  }
+
+  .card-inner {
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+  }
+
+  .card-icon-wrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .card-icon {
+    font-size: 2.2rem;
+  }
+}

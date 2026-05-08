@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blow the candles and make a wish — Grace Jude">
+  <meta name="theme-color" content="#1A0D14">
+  <title>Make a Wish — Grace Jude</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/candle.css">
+</head>
+<body>
+
+  <div class="candle-page page">
+
+    <!-- Back to menu -->
+    <a href="menu.html" class="back-btn back-btn--dark">
+      <span class="arrow">&#8592;</span> Back
+    </a>
+
+    <!-- Main content -->
+    <main class="candle-content">
+
+      <!-- Instruction (hidden after blow) -->
+      <div class="candle-instruction" id="instruction">
+        <p class="instruction-script script">Close your eyes&hellip; make a wish.</p>
+        <p class="instruction-hint">
+          Press <kbd>B</kbd> on your keyboard &nbsp;&bull;&nbsp; or tap the button below
+        </p>
+      </div>
+
+      <!-- Cake scene -->
+      <div class="cake-scene">
+        <!-- Ambient glow behind the cake -->
+        <div class="cake-glow" aria-hidden="true"></div>
+
+        <div class="cake">
+          <!-- Candles injected by candle.js — overlap with top of cake image -->
+          <div class="candles-row" id="candles-row"></div>
+
+          <!-- Real cake image -->
+          <img
+            src="assets/images/cake.png"
+            alt="Birthday cake for Nenye"
+            class="cake-img"
+          >
+        </div>
+      </div>
+
+      <!-- Blow button -->
+      <button class="blow-btn" id="blow-btn" aria-label="Blow the candles">
+        <span class="blow-icon" aria-hidden="true">💨</span>
+        <span class="blow-text">Blow the Candles!</span>
+      </button>
+
+      <!-- Celebration message — shown after blow -->
+      <div class="celebration" id="celebration" hidden>
+        <p class="celebration-icon">🎉</p>
+        <h2 class="script">Happy Birthday, Nenye!</h2>
+        <p class="celebration-sub">Your wish is soaring to the stars&nbsp;✨</p>
+      </div>
+
+    </main>
+
+    <!-- Confetti canvas -->
+    <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+
+  </div>
+
+  <!-- Celebration audio -->
+  <audio id="celebration-audio" preload="auto">
+    <source src="assets/audio/celebration.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="js/data/config.js"></script>
+  <script src="js/candle.js"></script>
+  <script src="js/transitions.js"></script>
+
+</body>
+</html>

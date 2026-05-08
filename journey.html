@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Grace Jude's life journey — every chapter beautifully told">
+  <meta name="theme-color" content="#F7EDE0">
+  <title>Journey So Far — Grace Jude</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/journey.css">
+</head>
+<body>
+
+  <!-- Shared carousel background (behind all page content) -->
+  <div id="page-carousel" class="page-carousel-bg" aria-hidden="true"></div>
+
+  <div class="journey-page page">
+
+    <!-- Back to menu -->
+    <a href="menu.html" class="back-btn">
+      <span class="arrow">&#8592;</span> Back
+    </a>
+
+    <!-- Page header -->
+    <header class="section-header journey-header">
+      <span class="label">Her Story</span>
+      <h1>Journey So Far</h1>
+      <p class="subtitle">
+        Every chapter written. Every moment lived.<br>
+        Every version of her — beautiful.
+      </p>
+    </header>
+
+    <!-- Timeline — items injected by journey.js -->
+    <main
+      class="timeline-container container"
+      id="timeline"
+      aria-label="Grace Jude's life journey"
+    ></main>
+
+    <!-- Closing footer -->
+    <footer class="journey-footer">
+      <div class="journey-footer-inner">
+        <p class="footer-deco">✦ &nbsp; ✦ &nbsp; ✦</p>
+        <p class="footer-message script">
+          &hellip;and the best chapters are still to come.
+        </p>
+        <p class="footer-bloom">🌸</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/data/config.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/data/journeyData.js"></script>
+  <script src="js/journey.js"></script>
+  <script src="js/transitions.js"></script>
+
+</body>
+</html>

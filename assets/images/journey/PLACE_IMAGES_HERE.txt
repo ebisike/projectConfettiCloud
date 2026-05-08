@@ -1,0 +1,10 @@
+Place journey timeline images here.
+Expected filenames (matching journeyData.js):
+  - childhood.jpg
+  - school.jpg
+  - teenage.jpg
+  - young-adult.jpg
+  - present.jpg
+
+Recommended: portrait or square photos, min 600px wide.
+The app shows a styled placeholder if an image is missing.

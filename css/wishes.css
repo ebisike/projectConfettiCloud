@@ -1,0 +1,335 @@
+/* =============================================
+   WISHES PAGE — css/wishes.css
+   Mobile-first. Soft, romantic card layout.
+   Each card uses --wish-color + --wish-color-light
+   set via inline style from wishesData.
+   ============================================= */
+
+/* ---- Page background ---- */
+.wishes-page {
+  /* Semi-transparent so the carousel shows through softly */
+  background-color: rgba(255, 248, 243, 0.82);
+  background-image:
+    radial-gradient(ellipse at 8%  30%, rgba(240, 184, 200, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 92% 15%, rgba(201, 178, 232, 0.16) 0%, transparent 48%),
+    radial-gradient(ellipse at 50% 88%, rgba(232, 168, 74,  0.08) 0%, transparent 50%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* z-index: 1 places the page above the carousel (z-index: 0) */
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Audio toggle (top-right) ---- */
+.audio-toggle {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--color-blush);
+  border-radius: var(--radius-full);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background var(--transition-base), transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.audio-toggle:hover,
+.audio-toggle:active {
+  background: var(--color-white);
+  transform: scale(1.08);
+}
+
+/* ---- Page header ---- */
+.wishes-header {
+  padding-top: calc(var(--space-3xl) + var(--space-xl));
+}
+
+/* ---- Cards grid — single column on mobile ---- */
+.wishes-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-3xl);
+  align-content: start;
+}
+
+/* ---- Individual wish card ---- */
+.wish-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  border-left: 5px solid var(--wish-color, var(--color-primary));
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition:
+    box-shadow  var(--transition-base),
+    transform   var(--transition-base),
+    background  var(--transition-base);
+  /* Entrance animation */
+  opacity: 0;
+  animation: fadeInUp 0.5s ease both;
+}
+
+.wish-card:active {
+  transform: translateY(-2px);
+}
+
+/* Open / active state */
+.wish-card.is-open {
+  background: var(--wish-color-light, rgba(212, 96, 122, 0.05));
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 2px var(--wish-color, var(--color-primary));
+}
+
+/* ---- Card inner body ---- */
+.card-body {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ---- Sender tag — "From [Name]" ---- */
+.card-sender-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 4px 14px 4px 10px;
+  background: var(--wish-color-light, rgba(212, 96, 122, 0.08));
+  border: 1px solid var(--wish-color, var(--color-primary));
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-xs);
+}
+
+.sender-prefix {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wish-color, var(--color-primary));
+}
+
+.sender-name {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: 1;
+}
+
+/* ---- Card header row: icon + title/from ---- */
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+/* Icon circle */
+.card-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--wish-color-light, rgba(212, 96, 122, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wish-card.is-open .card-icon-wrap,
+.wish-card:active .card-icon-wrap {
+  transform: scale(1.12);
+}
+
+/* Title + from stacked */
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-deep);
+  line-height: 1.25;
+  transition: color var(--transition-base);
+}
+
+.wish-card.is-open .card-title {
+  color: var(--wish-color, var(--color-primary));
+}
+
+.card-from {
+  font-size: var(--text-base);
+  color: var(--color-text-light);
+  letter-spacing: 0.02em;
+}
+
+/* ---- Preview text — always visible ---- */
+.card-preview {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  line-height: 1.75;
+  font-style: italic;
+  padding-top: var(--space-xs);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: var(--space-xs);
+}
+
+/* ---- Expandable full message ---- */
+.card-expandable {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--transition-slow),
+    opacity            0.35s ease;
+}
+
+.wish-card.is-open .card-expandable {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Single child needed for the 0fr trick */
+.card-expandable-inner {
+  overflow: hidden;
+}
+
+/* Full message block */
+.card-message {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: 1.9;
+  padding: var(--space-md) var(--space-lg);
+  margin-top: var(--space-md);
+  background: var(--wish-color-light, rgba(212, 96, 122, 0.06));
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--wish-color, var(--color-primary));
+  font-style: italic;
+}
+
+/* Decorative closing line */
+.card-closing {
+  display: block;
+  text-align: right;
+  font-size: var(--text-base);
+  color: var(--wish-color, var(--color-primary));
+  margin-top: var(--space-sm);
+  padding-right: var(--space-xs);
+  letter-spacing: 0.03em;
+}
+
+/* ---- Toggle button ---- */
+.card-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--wish-color, var(--color-primary));
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: opacity var(--transition-fast), letter-spacing var(--transition-base);
+  align-self: flex-start;
+}
+
+.card-toggle-btn:hover {
+  opacity: 0.75;
+  letter-spacing: 0.08em;
+}
+
+.toggle-icon {
+  font-size: var(--text-base);
+  transition: transform var(--transition-base);
+}
+
+.wish-card.is-open .toggle-icon {
+  transform: rotate(45deg);
+}
+
+/* ---- Footer ---- */
+.wishes-footer {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md) var(--space-2xl);
+  color: var(--color-text-light);
+  font-size: var(--text-xl);
+}
+
+/* =============================================
+   HOVER INTERACTIONS — pointer/desktop devices
+   ============================================= */
+@media (hover: hover) {
+
+  .wish-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Dim other cards when one is hovered */
+  .wishes-grid:has(.wish-card:hover) .wish-card:not(:hover) {
+    opacity: 0.7;
+    transform: scale(0.985);
+  }
+
+  .wish-card:hover .card-icon-wrap {
+    transform: scale(1.15);
+  }
+
+  .wish-card:hover .card-title {
+    color: var(--wish-color, var(--color-primary));
+  }
+}
+
+/* =============================================
+   RESPONSIVE — 640px+: two columns
+   ============================================= */
+@media (min-width: 640px) {
+  .wishes-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+
+  .card-title {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* =============================================
+   RESPONSIVE — 1024px+
+   ============================================= */
+@media (min-width: 1024px) {
+  .wishes-header {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .card-body {
+    padding: var(--space-2xl);
+  }
+
+  .card-message {
+    font-size: var(--text-lg);
+  }
+}

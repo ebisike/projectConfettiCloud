@@ -1,0 +1,7 @@
+Place audio files here.
+Expected filenames (matching config.js):
+  - melody.mp3        → soft ambient melody for the countdown page
+  - wishes-song.mp3   → song that plays when a wish card is selected
+  - celebration.mp3   → sound that plays when candles are blown out
+
+Audio is optional — the app works silently if files are missing.

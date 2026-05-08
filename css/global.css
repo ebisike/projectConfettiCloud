@@ -1,0 +1,481 @@
+/* =============================================
+   GLOBAL STYLES — ProjectConfettiCloud
+   Foundation: Variables, Reset, Typography,
+   Shared Components
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+/* =============================================
+   CSS VARIABLES
+   ============================================= */
+:root {
+  /* Colors */
+  --color-primary:        #D4607A;
+  --color-primary-dark:   #B84D65;
+  --color-blush:          #F0B8C8;
+  --color-blush-light:    #FAE8EF;
+  --color-gold:           #E8A84A;
+  --color-gold-light:     #F7D98A;
+  --color-gold-dark:      #C4872A;
+  --color-lavender:       #C9B2E8;
+  --color-cream:          #FFF8F3;
+  --color-cream-dark:     #F5EDE6;
+  --color-deep:           #2D1B25;
+  --color-text:           #3D2030;
+  --color-text-light:     #7A5560;
+  --color-white:          #FFFFFF;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-script:  'Dancing Script', cursive;
+  --font-body:    'Nunito', system-ui, sans-serif;
+
+  /* Font Sizes — mobile-first base */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+
+  /* Spacing */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Borders */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:   0 2px 8px rgba(45, 27, 37, 0.08);
+  --shadow-md:   0 4px 16px rgba(45, 27, 37, 0.12);
+  --shadow-lg:   0 8px 32px rgba(45, 27, 37, 0.18);
+  --shadow-glow: 0 0 28px rgba(212, 96, 122, 0.35);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* =============================================
+   RESET
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure the HTML `hidden` attribute always wins over CSS display rules */
+[hidden] {
+  display: none !important;
+}
+
+/* =============================================
+   SHARED PAGE CAROUSEL
+   Used by menu, journey and wishes pages.
+   Sits at z-index 0 behind all page content.
+   ============================================= */
+.page-carousel-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page-carousel-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.page-carousel-layer.active {
+  opacity: 1;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-cream);
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* =============================================
+   TYPOGRAPHY
+   ============================================= */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  color: var(--color-deep);
+}
+
+.script {
+  font-family: var(--font-script);
+}
+
+/* =============================================
+   LAYOUT UTILITIES
+   ============================================= */
+.page {
+  min-height: 100vh;
+  width: 100%;
+  animation: fadeIn 0.38s ease both;
+}
+
+/* Triggered by transitions.js on link click */
+.page.page-leaving {
+  animation: pageOut 0.28s ease both;
+  pointer-events: none;
+}
+
+@keyframes pageOut {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* =============================================
+   BACK BUTTON (shared across sub-pages)
+   ============================================= */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px var(--space-md);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  transition: background var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  position: fixed;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 100;
+  min-height: 44px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.back-btn:hover,
+.back-btn:active {
+  background: var(--color-white);
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.back-btn .arrow {
+  font-size: var(--text-base);
+  line-height: 1;
+}
+
+/* =============================================
+   SECTION HEADER (shared)
+   ============================================= */
+.section-header {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-md) var(--space-xl);
+}
+
+.section-header .label {
+  font-family: var(--font-script);
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.section-header h1 {
+  font-size: var(--text-3xl);
+  color: var(--color-deep);
+}
+
+.section-header .subtitle {
+  margin-top: var(--space-md);
+  color: var(--color-text-light);
+  font-size: var(--text-lg);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* =============================================
+   BUTTON STYLES (shared)
+   ============================================= */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  letter-spacing: 0.02em;
+  transition: background var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-base);
+  min-height: 52px;
+  min-width: 160px;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  transition: all var(--transition-base);
+  min-height: 52px;
+  min-width: 160px;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-glow);
+}
+
+/* =============================================
+   DECORATIVE DIVIDER
+   ============================================= */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+  color: var(--color-blush);
+  font-size: var(--text-lg);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-blush), transparent);
+}
+
+/* =============================================
+   KEYFRAME ANIMATIONS
+   ============================================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.04); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Animation utility classes */
+.anim-fadeIn      { animation: fadeIn      0.5s ease both; }
+.anim-fadeInUp    { animation: fadeInUp    0.5s ease both; }
+.anim-fadeInDown  { animation: fadeInDown  0.4s ease both; }
+.anim-scaleIn     { animation: scaleIn     0.4s ease both; }
+.anim-float       { animation: float       3s ease-in-out infinite; }
+
+/* Staggered delay helpers */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-blush);
+  border-radius: var(--radius-full);
+}
+
+/* =============================================
+   RESPONSIVE TYPOGRAPHY SCALING
+   ============================================= */
+@media (min-width: 480px) {
+  :root {
+    --text-3xl: 2rem;
+    --text-4xl: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-3xl: 2.25rem;
+    --text-4xl: 2.75rem;
+    --text-5xl: 3.5rem;
+  }
+
+  .section-header h1 {
+    font-size: var(--text-4xl);
+  }
+
+  .container {
+    padding: 0 var(--space-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --text-5xl: 4rem;
+  }
+}
+
+/* =============================================
+   REDUCED MOTION — respects user preference
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

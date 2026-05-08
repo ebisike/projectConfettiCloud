@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Birthday wishes written just for Grace Jude">
+  <meta name="theme-color" content="#FFF8F3">
+  <title>Birthday Wishes — Grace Jude</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/wishes.css">
+</head>
+<body>
+
+  <!-- Shared carousel background (behind all page content) -->
+  <div id="page-carousel" class="page-carousel-bg" aria-hidden="true"></div>
+
+  <div class="wishes-page page">
+
+    <!-- Back to menu -->
+    <a href="menu.html" class="back-btn">
+      <span class="arrow">&#8592;</span> Back
+    </a>
+
+    <!-- Audio mute toggle -->
+    <button class="audio-toggle" id="audio-toggle" aria-label="Toggle music" hidden>
+      <span id="audio-icon">🔊</span>
+    </button>
+
+    <!-- Page header -->
+    <header class="section-header wishes-header">
+      <span class="label">Just for You</span>
+      <h1>Birthday Wishes</h1>
+      <p class="subtitle">
+        Open each one. Let the words find you.<br>
+        Every line was written with you in mind.
+      </p>
+    </header>
+
+    <!-- Wish cards — injected by wishes.js -->
+    <main class="wishes-grid container" id="wishes-container" aria-label="Birthday wishes"></main>
+
+    <!-- Footer -->
+    <footer class="wishes-footer">
+      <p class="script">Every word written with love. 🌸</p>
+    </footer>
+
+  </div>
+
+  <!-- Background audio -->
+  <audio id="wishes-audio" loop preload="auto">
+    <source src="assets/audio/wishes-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="js/data/config.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/data/wishesData.js"></script>
+  <script src="js/wishes.js"></script>
+  <script src="js/transitions.js"></script>
+
+</body>
+</html>

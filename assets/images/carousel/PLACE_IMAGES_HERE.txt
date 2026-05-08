@@ -1,0 +1,8 @@
+Place your carousel background images here.
+Expected filenames (matching config.js):
+  - slide1.jpg
+  - slide2.jpg
+  - slide3.jpg
+
+Recommended: landscape photos, min 1200px wide.
+The app falls back to gradient backgrounds if images are missing.
