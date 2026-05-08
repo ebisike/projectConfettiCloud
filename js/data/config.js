@@ -6,8 +6,8 @@
 
    const setSlideShowPictures = ()=>{
     let array = [];
-    for (let index = 0; index <= 2; index++) {
-      array.push(`assets/images/carousel/slide${index+1}.jpg`);
+    for (let index = 8; index >=1; index--) {
+      array.push(`assets/images/carousel/slide${index}.jpg`);
     }
     return array;
    }
@@ -19,7 +19,7 @@ var appConfig = {
   age:      25,
 
   /* --- Countdown target: 29th May 2026, midnight --- */
-  countdownTarget: new Date("2026-05-05T13:31:00"),
+  countdownTarget: new Date("2026-05-08T16:19:00"),
 
   /* --- Candle page --- */
   candleCount: 25,

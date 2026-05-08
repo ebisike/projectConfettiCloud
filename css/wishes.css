@@ -270,6 +270,22 @@
   transform: rotate(45deg);
 }
 
+/* ---- Wish media strip ---- */
+/* Horizontal scrollable row of polaroids inside the expanded card.
+   Individual polaroid styles come from global.css. */
+.wish-media-strip {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-lg) var(--space-xs) var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.wish-media-strip::-webkit-scrollbar { display: none; }
+.wish-media-strip { scrollbar-width: none; }
+
 /* ---- Footer ---- */
 .wishes-footer {
   text-align: center;

@@ -43,8 +43,8 @@ var journeyData = [
     title: "Brilliance in Bloom",
     description: "There was something about the way you moved through those early years — quietly sure of yourself, gentle in the way you carried others, sharp in ways that surprised even the people who thought they knew you. You were becoming something extraordinary, one quiet day at a time.",
     images: [
-      { src: "assets/images/journey/school-1.jpg", caption: "Bright eyes, brighter future" },
-      { src: "assets/images/journey/school-2.jpg", caption: "Learning and laughing in equal measure" }
+      {  type: "image", src: "assets/images/journey/school-1.jpg", caption: "Bright eyes, brighter future" },
+      {  type: "image", src: "assets/images/journey/school-2.jpg", caption: "Learning and laughing in equal measure" }
     ],
     tag: "Finding her wings",
     align: "right"
@@ -57,9 +57,9 @@ var journeyData = [
     title: "The Girl Who Refused to Dim",
     description: "This was the season where the world tried to tell you who to be — and you simply smiled and chose yourself anyway. There was a grace to how you navigated the noise, a quiet confidence that didn't need an audience. You were never performing. You were just you. And that was always more than enough.",
     images: [
-      { src: "assets/images/journey/teenage-1.jpg", caption: "Unmistakably herself" },
-      { src: "assets/images/journey/teenage-2.jpg", caption: "Growing into her light" },
-      { src: "assets/images/journey/teenage-3.jpg", caption: "The smile that stayed" }
+      {  type: "image", src: "assets/images/journey/teenage-1.jpg", caption: "Unmistakably herself" },
+      {  type: "image", src: "assets/images/journey/teenage-2.jpg", caption: "Growing into her light" },
+      {  type: "image", src: "assets/images/journey/teenage-3.jpg", caption: "The smile that stayed" }
     ],
     tag: "Unmistakably her",
     align: "left"
@@ -72,8 +72,8 @@ var journeyData = [
     title: "She Became Her Own Answer",
     description: "There's a kind of courage that doesn't announce itself — it just shows up. In the choices you made, the spaces you walked into, the times you kept going when going was the hardest thing. You built a life that reflects who you really are, and watching you do it has been one of the greatest gifts.",
     images: [
-      { src: "assets/images/journey/young-adult-1.jpg", caption: "Walking into her own story" },
-      { src: "assets/images/journey/young-adult-2.jpg", caption: "Every step, intentional" }
+      {  type: "image", src: "assets/images/journey/young-adult-1.jpg", caption: "Walking into her own story" },
+      {  type: "image", src: "assets/images/journey/young-adult-2.jpg", caption: "Every step, intentional" }
     ],
     tag: "Owning her story",
     align: "right"

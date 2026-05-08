@@ -1,4 +1,4 @@
-/* =============================================
+﻿/* =============================================
    JOURNEY PAGE — js/journey.js
    Renders timeline from journeyData.
    Each entry supports multiple photos with captions.
@@ -92,120 +92,41 @@ function buildPhotosHTML(images) {
   return photosHTML;
 }
 
+
 /* ============================================
-   PHOTO / VIDEO LIGHTBOX
-   Click any polaroid (image OR video) to
-   magnify it fullscreen.
+   LIGHTBOX -- journey-specific click handler
+   DOM setup + open/close live in lightbox.js
    ============================================ */
 
 function initLightbox() {
-  /* Inject lightbox into the DOM once.
-     Includes both an <img> and a <video> —
-     only the relevant one is shown at a time. */
-  var lb = document.createElement('div');
-  lb.id        = 'photo-lightbox';
-  lb.className = 'photo-lightbox';
-  lb.setAttribute('hidden', '');
-  lb.innerHTML =
-    '<div class="lb-backdrop"></div>' +
-    '<div class="lb-frame">' +
-      '<img class="lb-img" src="" alt="" loading="eager">' +
-      '<video class="lb-video" controls playsinline preload="none" hidden></video>' +
-      '<p class="lb-caption script"></p>' +
-      '<button class="lb-close" aria-label="Close">&times;</button>' +
-    '</div>';
-  document.body.appendChild(lb);
+  initLightboxDOM(); /* from lightbox.js */
 
-  /* Open on click of any polaroid — image or video */
   var timeline = document.getElementById('timeline');
-  if (timeline) {
-    timeline.addEventListener('click', function (e) {
-      var photo = e.target.closest('.timeline-photo');
-      if (!photo) return;
+  if (!timeline) return;
 
-      var captionText = (photo.querySelector('.photo-caption') || {}).textContent || '';
-      captionText = captionText.trim();
+  timeline.addEventListener('click', function (e) {
+    var photo = e.target.closest('.timeline-photo');
+    if (!photo) return;
 
-      if (photo.classList.contains('timeline-photo--video')) {
-        /* ---- Video polaroid ---- */
-        var inlineVideo = photo.querySelector('.timeline-video');
-        if (!inlineVideo) return;
+    var captionText = ((photo.querySelector('.photo-caption') || {}).textContent || '').trim();
 
-        e.stopPropagation();
-        inlineVideo.pause(); /* pause the inline card player */
-
-        var sourceEl = inlineVideo.querySelector('source');
-        var videoSrc = sourceEl ? sourceEl.getAttribute('src') : (inlineVideo.getAttribute('src') || '');
-        var poster   = inlineVideo.getAttribute('poster') || '';
-
-        openLightbox({ type: 'video', src: videoSrc, caption: captionText, poster: poster });
-
-      } else {
-        /* ---- Image polaroid ---- */
-        var img = photo.querySelector('.photo-front img');
-        if (!img || photo.querySelector('.photo-front.no-image')) return;
-
-        e.stopPropagation();
-        openLightbox({ type: 'image', src: img.src, alt: img.alt, caption: captionText });
-      }
-    });
-  }
-
-  lb.querySelector('.lb-backdrop').addEventListener('click', closeLightbox);
-  lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeLightbox();
+    if (photo.classList.contains('timeline-photo--video')) {
+      var inlineVideo = photo.querySelector('.timeline-video');
+      if (!inlineVideo) return;
+      e.stopPropagation();
+      inlineVideo.pause();
+      var sourceEl = inlineVideo.querySelector('source');
+      var videoSrc = sourceEl ? sourceEl.getAttribute('src') : '';
+      openLightbox({ type: 'video', src: videoSrc, caption: captionText, poster: inlineVideo.getAttribute('poster') || '' });
+    } else {
+      var img = photo.querySelector('.photo-front img');
+      if (!img || photo.querySelector('.photo-front.no-image')) return;
+      e.stopPropagation();
+      openLightbox({ type: 'image', src: img.src, alt: img.alt, caption: captionText });
+    }
   });
 }
 
-function openLightbox(opts) {
-  var lb = document.getElementById('photo-lightbox');
-  if (!lb) return;
-
-  var imgEl     = lb.querySelector('.lb-img');
-  var videoEl   = lb.querySelector('.lb-video');
-  var captionEl = lb.querySelector('.lb-caption');
-
-  captionEl.textContent = opts.caption || '';
-
-  if (opts.type === 'video') {
-    /* Show video, hide image */
-    imgEl.setAttribute('hidden', '');
-    imgEl.src = '';
-
-    videoEl.removeAttribute('hidden');
-    videoEl.setAttribute('poster', opts.poster || '');
-    videoEl.src = opts.src;
-    videoEl.load(); /* reset player to start of new clip */
-  } else {
-    /* Show image, hide video */
-    videoEl.setAttribute('hidden', '');
-    videoEl.pause();
-    videoEl.src = '';
-
-    imgEl.removeAttribute('hidden');
-    imgEl.src = opts.src;
-    imgEl.alt = opts.alt || '';
-  }
-
-  lb.removeAttribute('hidden');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeLightbox() {
-  var lb = document.getElementById('photo-lightbox');
-  if (!lb) return;
-
-  /* Stop any playing video so it doesn't continue in the background */
-  var videoEl = lb.querySelector('.lb-video');
-  if (videoEl) {
-    videoEl.pause();
-    videoEl.src = '';
-  }
-
-  lb.setAttribute('hidden', '');
-  document.body.style.overflow = '';
-}
 
 /* ============================================
    SCROLL REVEAL
