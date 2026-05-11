@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A song composed just for Grace Jude">
+  <meta name="theme-color" content="#1A0D14">
+  <title>Tunes — Grace Jude</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/tunes.css">
+</head>
+<body>
+
+  <div class="tunes-page page">
+
+    <!-- Back to menu -->
+    <a href="menu.html" class="back-btn back-btn--light">
+      <span class="arrow">&#8592;</span> Back
+    </a>
+
+    <!-- Player section -->
+    <section class="player-section">
+
+      <!-- Animated visual -->
+      <div class="player-visual" id="player-visual" aria-hidden="true">
+        <div class="vinyl">
+          <div class="vinyl-ring r1"></div>
+          <div class="vinyl-ring r2"></div>
+          <div class="vinyl-ring r3"></div>
+          <div class="vinyl-center">♪</div>
+        </div>
+        <div class="eq-bars" id="eq-bars">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+        </div>
+      </div>
+
+      <!-- Song info -->
+      <div class="song-info">
+        <h1 class="song-title" id="song-title">If I Didn&rsquo;t Have You</h1>
+        <p class="song-subtitle script" id="song-subtitle">Chinenye&rsquo;s Song</p>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap">
+        <span class="time-current" id="time-current">0:00</span>
+        <div class="progress-bar" id="progress-bar" role="slider" aria-label="Song progress">
+          <div class="progress-fill" id="progress-fill"></div>
+          <div class="progress-thumb" id="progress-thumb"></div>
+        </div>
+        <span class="time-total" id="time-total">0:00</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="player-controls">
+        <button class="play-btn" id="play-btn" aria-label="Play">
+          <span class="play-icon" id="play-icon">&#9654;</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Credits-style lyrics section -->
+    <section class="credits-section">
+      <!-- Masked window — lyrics scroll upward through here -->
+      <div class="lyrics-wrapper" id="lyrics-wrapper">
+        <div class="lyrics-scroll" id="lyrics-scroll">
+          <!-- Lines injected by tunes.js -->
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- The song — src is set by tunes.js from tunesData.src -->
+  <audio id="song-audio" preload="auto"></audio>
+
+  <script src="js/data/config.js"></script>
+  <script src="js/data/tunesData.js"></script>
+  <script src="js/tunes.js"></script>
+  <script src="js/transitions.js"></script>
+
+</body>
+</html>

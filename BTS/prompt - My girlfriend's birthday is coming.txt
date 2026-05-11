@@ -1,0 +1,46 @@
+My girlfriend's birthday is coming soon (26/04/2026), and I want to build a fun birthday web app for her.
+The app should use modern HTML, CSS and JavaScript (vanilla)
+Her name is Grace Jude, I call her Nenye.
+
+Birthday app idea.
+Page1: 
+This should be a countdown page. (countdown end is 29th May, 2026)
+It should have a melody and a picture carousel as the page background.
+It should use a setTimeout of 5sec to navigate to the main pages when the countdown expires
+
+Page2:
+This page should have a grid of different actions that can be clicked on. 
+A birthday greeting message should be on top the actions grid.
+The grid should have a nice animation with icon illustration as the header, Headings text for the name of the action, sub-text and describe the actions, and plain text to explain what the action can do in details for each action.
+These are the list of possible actions:
+- Journey so far
+- Birthday wishes
+- Blow your candle/Make a wish
+
+Page 3 (Journey So Far):
+This page should be a history book with pictures of her childhood till date.
+The pictures should have a vintage theme and the text font style should be vintage
+
+Page 3 (Birthday Wishes)
+This page should show a collection of birthday wishes with the name of who wished her.
+The wishes can be a lot, so make the page fun, interactive and intuitive to use.
+It should have a background song playing when any wish is clicked on
+
+Page 3 (Blow your candle/Make a wish)
+This page should show a cake with as much candles as her ag on it.
+When she presses the B-key on her keyboard, that should send a signal that she wants to blow out the candles, then the flames should go off like a real candle, with confetti all over the screen. (The ui should have a small note giving instructions on how to blow the candles)
+
+
+Generate a prompt for OpenRouter/Kemi k2.6 Ai Model to build this entire app, but must start with analysis and planning phase, after that is approved, it then moves to implementation.
+
+Note even though its a basic web app, with vanilla js, proper separation of concerns must be employeed, and must use clean code approach. 
+
+Hello 
+My name is George, (Grace's boyfriend)
+First apologies for messaging you out of the blue, but desperate times has called for desperate measures.
+So to begin, we start by taking this oath of secrecy (just kidding). But please I don't want her to find out about this, at least not yet.
+
+For the very short time I've known and interacted with Grace, she has used every opportunity to speak highly of you, and this month being her birthday month, I want to surprise her (but can't do it without your input).
+
+I'm working on a project (Project  CONFETTI CLOUD) This is a surprise birthday project; I am gathering fun memories (pictures, videos etc) and also birthday wishes. 
+So I'll like if you can contribute to this project.

@@ -1,0 +1,154 @@
+/* =============================================
+   SCRAPBOOK PAGE — css/scrapbook.css
+   Draggable polaroid canvas. Warm aged-paper
+   background. Floating toolbar at bottom.
+   ============================================= */
+
+/* ---- Page ---- */
+.scrapbook-page {
+  background-color: rgba(247, 237, 224, 0.84);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 34px,
+      rgba(160, 110, 60, 0.03) 34px,
+      rgba(160, 110, 60, 0.03) 35px
+    );
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 100px; /* clear the toolbar */
+}
+
+/* ---- Header ---- */
+.scrapbook-header {
+  padding-top: calc(var(--space-3xl) + var(--space-xl));
+  padding-bottom: var(--space-lg);
+}
+
+/* ---- Canvas ---- */
+.scrapbook-canvas {
+  position: relative;
+  width: 100%;
+  /* Height set by JS once photo count is known */
+  min-height: 60vh;
+  overflow: hidden; /* photos are clamped inside by JS */
+  /* Subtle inset shadow to frame the canvas area */
+  box-shadow: inset 0 8px 24px rgba(160, 110, 60, 0.08);
+}
+
+/* ---- Polaroid overrides inside the canvas ---- */
+
+/* Remove the global nth-child rotations — JS sets each photo's rotation */
+.scrapbook-canvas .timeline-photo:nth-child(1),
+.scrapbook-canvas .timeline-photo:nth-child(2),
+.scrapbook-canvas .timeline-photo:nth-child(3),
+.scrapbook-canvas .timeline-photo:nth-child(4),
+.scrapbook-canvas .timeline-photo:nth-child(5) {
+  transform: none;
+}
+
+.scrapbook-canvas .timeline-photo {
+  position: absolute;
+  cursor: grab;
+  /* Smooth shuffle/tidy transitions — disabled during drag */
+  transition:
+    left      0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    top       0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none; /* let JS handle touch */
+}
+
+/* While dragging: no transition, higher z-index, grabbing cursor */
+.scrapbook-canvas .timeline-photo.dragging {
+  transition: none !important;
+  cursor: grabbing;
+  z-index: 1000 !important;
+}
+
+/* Images inside polaroids should not block pointer events used for drag */
+.scrapbook-canvas .timeline-photo img,
+.scrapbook-canvas .timeline-photo video {
+  pointer-events: none;
+}
+
+/* Don't flip on hover inside scrapbook — drag+click is the interaction */
+@media (hover: hover) {
+  .scrapbook-canvas .timeline-photo:hover .photo-flipper {
+    transform: none !important;
+  }
+}
+
+/* ---- Floating toolbar ---- */
+.scrapbook-toolbar {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  gap: var(--space-md);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(160, 110, 60, 0.15);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    background  var(--transition-base),
+    transform   var(--transition-fast),
+    box-shadow  var(--transition-base);
+  min-height: 44px;
+}
+
+.btn-shuffle {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-shuffle:hover,
+.btn-shuffle:active {
+  background: var(--color-primary-dark);
+  transform: scale(1.06);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-tidy {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.btn-tidy:hover,
+.btn-tidy:active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: scale(1.06);
+}
+
+/* Spin the shuffle emoji when animating */
+@keyframes spinOnce {
+  from { transform: scale(1.06) rotate(0deg); }
+  to   { transform: scale(1.06) rotate(360deg); }
+}
+
+.btn-shuffle.spinning {
+  animation: spinOnce 0.5s ease;
+}

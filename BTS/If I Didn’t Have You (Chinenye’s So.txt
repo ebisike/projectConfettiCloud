@@ -1,0 +1,58 @@
+If I Didn’t Have You (Chinenye’s Song – Dev Version)
+
+[Verse 1]
+If I didn’t have you, life would be blue
+I’d be a server down with no restart
+A codebase with no tests, a merge that’s a mess
+I’d be debugging bugs in the dark
+
+I’d be Git without commit, a function throwing fits
+Like null refs crashing all my flow
+I’d be logic with no plan, a loop that never ends
+Still stuck where I was years ago
+
+I’d be an app with no UI, a query with no reply
+And I’d probably still live on my own
+Yeah, I’d probably still be on my own
+
+[Chorus]
+Ever since I met you, you turned my world around
+You made sense of all my scattered code
+You’re like frontend and backend in perfect sync
+Running smoothly in one mode
+
+[Post-Chorus]
+I couldn’t have imagined
+How good my life would get
+From the moment that I met you, Chinenye
+
+[Verse 2]
+If I didn’t have you, life would be dreary
+I’d be an API with no response
+I’d be binary without a one, a job that’s never done
+Like a system stuck in constant pause
+
+I’d be Docker with no image, a stack with broken limits
+A deploy that never goes live
+I’d be searching Stack Overflow all night
+Just trying to survive
+
+I’d overthink every line I write
+And still not get it right
+Yeah, I’d probably still be on my own
+
+[Chorus 2]
+Ever since I met you, you turned my world around
+You’re my safe place and my support
+We’re like code and execution
+You can’t have one without the source
+
+[Post-Chorus]
+I couldn’t have imagined
+How good my life would get
+From the moment that I met you, Chinenye
+
+[Outro]
+Oh, I couldn’t have imagined
+How good my life would get
+From the moment that I met you, Chinenye

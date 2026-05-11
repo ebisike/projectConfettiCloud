@@ -15,10 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
    ============================================ */
 
 function initCards() {
-  /* On devices that support true hover (desktops), CSS :hover already
-     expands the card — the click handler would fight that, so skip it. */
-  var hasHover = window.matchMedia('(hover: hover)').matches;
-  if (hasHover) return;
+  /* Skip the click handler only on true desktop-mouse devices.
+     (hover: hover) alone is unreliable — many mobile browsers now
+     report it as true. Combining with (pointer: fine) correctly
+     targets mouse/trackpad only; touch screens stay coarse. */
+  var isDesktopMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (isDesktopMouse) return;
 
   var cards = document.querySelectorAll('.menu-card');
 

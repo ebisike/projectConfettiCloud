@@ -263,10 +263,11 @@
 
 /* =============================================
    HOVER INTERACTIONS — pointer/desktop devices
-   @media (hover: hover) ensures touch devices
+   (hover: hover) and (pointer: fine) targets true desktop-mouse
+   devices only — touch screens won't accidentally match.
    are never affected by these rules.
    ============================================= */
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
 
   /* Card lifts and gains accent-colour ring */
   .menu-card:hover {
@@ -349,6 +350,10 @@
     max-width: none;
     margin: 0;
   }
+
+  /* Cards 4 & 5 form a pair in row 2 — centre them together */
+  .menu-card:nth-child(4) { grid-column: 1; }
+  .menu-card:nth-child(5) { grid-column: 3; }
 
   .menu-header {
     padding: var(--space-3xl) var(--space-md) var(--space-2xl);

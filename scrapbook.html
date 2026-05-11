@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Every memory together — Grace Jude's scrapbook">
+  <meta name="theme-color" content="#F7EDE0">
+  <title>Scrapbook — Grace Jude</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/scrapbook.css">
+</head>
+<body>
+
+  <!-- Shared carousel background -->
+  <div id="page-carousel" class="page-carousel-bg" aria-hidden="true"></div>
+
+  <div class="scrapbook-page page">
+
+    <!-- Back to menu -->
+    <a href="menu.html" class="back-btn">
+      <span class="arrow">&#8592;</span> Back
+    </a>
+
+    <!-- Page header -->
+    <header class="section-header scrapbook-header">
+      <span class="label">Every Memory</span>
+      <h1>Our Scrapbook</h1>
+      <p class="subtitle">
+        Drag the pictures around &mdash; make it yours.<br>
+        Tap any photo or video to see it bigger.
+      </p>
+    </header>
+
+    <!-- Canvas where polaroids live -->
+    <div class="scrapbook-canvas" id="scrapbook-canvas"></div>
+
+  </div>
+
+  <!-- Floating action bar -->
+  <div class="scrapbook-toolbar" aria-label="Scrapbook controls">
+    <button class="toolbar-btn btn-shuffle" id="btn-shuffle" aria-label="Shuffle photos">
+      &#x1F500;&ensp;Shuffle
+    </button>
+    <button class="toolbar-btn btn-tidy"    id="btn-tidy"    aria-label="Tidy up photos">
+      &#8862;&ensp;Tidy Up
+    </button>
+  </div>
+
+  <script src="js/data/config.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script src="js/data/journeyData.js"></script>
+  <script src="js/data/wishesData.js"></script>
+  <script src="js/scrapbook.js"></script>
+  <script src="js/transitions.js"></script>
+
+</body>
+</html>

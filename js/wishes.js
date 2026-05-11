@@ -77,7 +77,7 @@ function buildWishCard(wish, index) {
         /* Expandable full message + optional media */
         '<div class="card-expandable">' +
           '<div class="card-expandable-inner">' +
-            '<p class="card-message">' + wish.message + '</p>' +
+            formatMessage(wish.message) +
             '<span class="card-closing script">&mdash; Always, with love. 🌸</span>' +
             (wish.media && wish.media.length ? buildWishMediaHTML(wish.media) : '') +
           '</div>' +
@@ -189,6 +189,16 @@ function startAudio() {
 /* ============================================
    UTILITY
    ============================================ */
+
+/* Converts newlines to <br> tags inside a single <p>,
+   preserving the spacing from the original text. */
+function formatMessage(text) {
+  var html = text
+    .trim()
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g,   '<br>');
+  return '<p class="card-message">' + html + '</p>';
+}
 
 function hexToRgba(hex, alpha) {
   if (!hex || hex.length < 7) return 'rgba(212,96,122,' + alpha + ')';
