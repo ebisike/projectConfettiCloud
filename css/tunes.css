@@ -275,44 +275,45 @@
   min-height: 280px;
 }
 
-/* The visible window — masks top & bottom edges.
-   Explicit height avoids the flex:1 → 0px trap when
-   the parent uses min-height instead of height. */
+/* Scrollable viewport — lines scroll upward to stay centred.
+   mask-image fades the top & bottom edges as content scrolls through. */
 .lyrics-wrapper {
   height: 45vh;
   min-height: 220px;
-  overflow: hidden;
+  overflow-y: scroll;
   position: relative;
-  /* Fade in from bottom, fade out at top */
+  /* Hide scrollbar — JS controls the scroll position */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Fade edges for a floating feel */
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent  0%,
-    black       15%,
-    black       85%,
+    black       18%,
+    black       82%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent  0%,
-    black       15%,
-    black       85%,
+    black       18%,
+    black       82%,
     transparent 100%
   );
+  /* Block pointer events on the wrapper so lines can still receive clicks */
+  pointer-events: auto;
 }
 
-/* The scrolling content — translateY set by JS */
+.lyrics-wrapper::-webkit-scrollbar { display: none; }
+
+/* Normal-flow content — padding set by JS so first/last lines can centre */
 .lyrics-scroll {
-  position: absolute;
-  width: 100%;
-  left: 0;
   text-align: center;
-  padding: 0 var(--space-lg) var(--space-3xl);
-  /* Smooth movement between timeupdate events (~250ms) */
-  transition: transform 0.22s linear;
-  will-change: transform;
+  padding: 0 var(--space-lg);
+  /* padding-top / padding-bottom injected by renderLyrics() */
 }
 
-/* Section label: — Verse 1 — */
+/* ---- Section label: — Verse 1 — ---- */
 .credit-section {
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -320,39 +321,56 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-gold);
-  opacity: 0.65;
+  opacity: 0.45;
   margin: var(--space-2xl) 0 var(--space-md);
 }
 
-/* Individual lyric line */
+/* ---- Lyric lines — proximity brightness ---- */
+
+/* Default: far from active — very dim */
 .credit-line {
   font-family: var(--font-heading);
-  font-size: clamp(var(--text-base), 3.5vw, var(--text-xl));
-  color: rgba(255, 255, 255, 0.55);
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.2);
   font-style: italic;
-  line-height: 1.85;
-  padding: 2px 0;
+  line-height: 2.1;
+  padding: 1px 0;
   letter-spacing: 0.01em;
-  transition: color 0.4s ease, font-size 0.3s ease, text-shadow 0.4s ease;
+  cursor: pointer;
+  transition:
+    color      0.45s ease,
+    font-size  0.35s ease,
+    font-weight 0.35s ease,
+    text-shadow 0.45s ease;
 }
 
-/* Currently singing line — sing along! */
-.credit-line--active {
+/* ±3 lines from active */
+.credit-line.lyric-d2 {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ±1 line from active */
+.credit-line.lyric-d1 {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: var(--text-lg);
+}
+
+/* Currently singing — gold, bold, large */
+.credit-line.lyric-active {
   color: var(--color-gold);
+  font-size: var(--text-2xl);
   font-style: normal;
-  font-size: clamp(var(--text-lg), 4.5vw, var(--text-2xl));
-  text-shadow: 0 0 22px rgba(232, 168, 74, 0.5);
+  font-weight: 700;
+  text-shadow: 0 0 24px rgba(232, 168, 74, 0.45);
+  letter-spacing: 0.01em;
 }
 
 /* =============================================
    RESPONSIVE
    ============================================= */
 @media (min-width: 768px) {
-  .credit-line {
-    font-size: var(--text-2xl);
-    line-height: 2;
-  }
-  .credit-section {
-    margin: var(--space-3xl) 0 var(--space-lg);
-  }
+  .credit-line           { font-size: var(--text-lg); }
+  .credit-line.lyric-d1  { font-size: var(--text-xl); }
+  .credit-line.lyric-active { font-size: var(--text-3xl); }
+  .credit-section        { margin: var(--space-3xl) 0 var(--space-lg); }
 }

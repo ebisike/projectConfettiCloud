@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initCarousel();
   initCountdown();
   initAudio();
+  initGuestCard();
 });
 
 /* ============================================
@@ -230,6 +231,31 @@ function checkPin() {
       alert('You are not Chinenye; this is not for your eyes. 🤫');
     }, 450);
   }
+}
+
+/* ============================================
+   GUEST MEETING CARD
+   Shown on the passcode screen for visitors
+   who don't have the correct passcode.
+   Configured via appConfig.guestMeeting.
+   ============================================ */
+
+function initGuestCard() {
+  var cfg  = appConfig.guestMeeting;
+  var card = document.getElementById('guest-card');
+  var btn  = document.getElementById('guest-meet-btn');
+
+  /* Only show the card if a meeting link has been set */
+  if (!cfg || !cfg.link || cfg.link === 'https://meet.google.com/your-link-here') return;
+  if (!card || !btn) return;
+
+  /* Reveal the card (it starts hidden in HTML) */
+  card.removeAttribute('hidden');
+
+  btn.addEventListener('click', function () {
+    var target = cfg.openInNewTab ? '_blank' : '_self';
+    window.open(cfg.link, target, 'noopener,noreferrer');
+  });
 }
 
 /* ============================================

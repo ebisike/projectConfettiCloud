@@ -19,7 +19,7 @@ var appConfig = {
   age:      25,
 
   /* --- Countdown target: 29th May 2026, midnight --- */
-  countdownTarget: new Date("2026-05-08T16:19:00"),
+  countdownTarget: new Date("2026-05-11T16:19:00"),
 
   /* --- Candle page --- */
   candleCount: 25,
@@ -51,7 +51,17 @@ var appConfig = {
   /* --- Shared carousel on all pages ---
        Set to false to instantly roll back the carousel
        from menu, journey and wishes pages.             */
-  carouselOnAllPages: true
+  carouselOnAllPages: true,
+
+  /* --- Guest meeting card (shown on the passcode screen) ---
+       Visitors who don't have the passcode can join via video call.
+       Set link to your Google Meet / Zoom / Teams URL.
+       openInNewTab: true  → opens in a new browser tab (_blank)
+       openInNewTab: false → replaces the current tab (_self)    */
+  guestMeeting: {
+    link:        "https://meet.google.com/rhg-dzwq-fvx",
+    openInNewTab: false
+  }
 
 };
 

@@ -85,6 +85,12 @@
 .timeline-photos::-webkit-scrollbar { display: none; }
 .timeline-photos { scrollbar-width: none; }
 
+/* Overflow card — never flip on hover (no .photo-back inside it) */
+.timeline-photo--overflow .photo-flipper {
+  transform: none !important;
+  transition: none !important;
+}
+
 /* Polaroid, flipper, front/back, caption, video, lightbox styles
    are now in global.css (shared with wishes.html). */
 
@@ -326,4 +332,247 @@
 }
 
 /* Lightbox + video override styles now in global.css */
+
+/* =============================================
+   OVERFLOW CARD (+N more)
+   The 5th slot in the strip — shows a blurred
+   peek at the next photo with a count badge.
+   ============================================= */
+
+.timeline-photo--overflow {
+  cursor: pointer;
+}
+
+/* Blurred peek image */
+.timeline-photo--overflow .photo-front img {
+  filter: blur(3px) brightness(0.45);
+  pointer-events: none;
+}
+
+/* Count badge layered over the peek */
+.overflow-badge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.overflow-plus {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.overflow-more {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Hover lift matching normal polaroids */
+@media (hover: hover) {
+  .timeline-photo--overflow:hover {
+    transform: translateY(-4px) rotate(0deg) !important;
+  }
+  .timeline-photo--overflow:hover .photo-front img {
+    filter: blur(3px) brightness(0.6);
+  }
+}
+
+/* =============================================
+   PHOTO GALLERY MODAL
+   Full-screen grid of all photos in a section.
+   ============================================= */
+
+.photo-gallery-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  animation: fadeIn 0.2s ease both;
+}
+
+.gallery-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 5, 8, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+/* The visible panel */
+.gallery-content {
+  position: relative;
+  z-index: 1;
+  background: #F7EDE0; /* warm aged paper — matches journey page */
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: min(860px, 96vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+
+.gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg) var(--space-xl) var(--space-md);
+  border-bottom: 1px solid rgba(160,110,60,0.12);
+  position: sticky;
+  top: 0;
+  background: #F7EDE0;
+  z-index: 2;
+}
+
+.gallery-title {
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+}
+
+.gallery-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(160,110,60,0.1);
+  color: var(--color-text);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.gallery-close-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: rotate(90deg);
+}
+
+/* Photo grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: var(--space-md);
+}
+
+/* Individual thumbnail */
+.gallery-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  cursor: zoom-in;
+  border-radius: var(--radius-sm);
+  background: var(--color-cream-dark);
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Caption overlay on hover */
+.gallery-thumb-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-sm) var(--space-sm) var(--space-xs);
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+  color: var(--color-white);
+  font-family: var(--font-script);
+  font-size: var(--text-xs);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.gallery-thumb--video .gallery-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  padding-left: 2px;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .gallery-thumb:hover img {
+    transform: scale(1.06);
+    filter: brightness(0.85);
+  }
+  .gallery-thumb:hover .gallery-thumb-caption {
+    opacity: 1;
+  }
+}
+
+/* "Load more" button inside the gallery modal */
+.gallery-more-btn {
+  display: block;
+  margin: var(--space-lg) auto var(--space-md);
+  padding: var(--space-sm) var(--space-xl);
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+  min-height: 44px;
+}
+
+.gallery-more-btn:hover,
+.gallery-more-btn:active {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Responsive grid: 2 columns on small screens */
+@media (max-width: 520px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 

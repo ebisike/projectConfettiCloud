@@ -99,6 +99,39 @@ var wishesData = [
     message: "Grace, Grace, my friend and sister,\n\nI celebrate you now and always. I celebrate your growth and love for the things of God.\n\nHappy happy birthday to you! 🥳 May your life continually radiate the glory of God ✨ Keep thriving 🙌\n\nFrom Oluwafemi",
     accentColor: "#9B7FD8",
     media: []
+  },
+
+  {
+    id: 7,
+    icon: "🤍",
+    sender: "Dynamic",
+    from: "Since 2021 & Counting",
+    title: "Carried by Grace",
+    preview: "Life brought us together in 2021, just trying to figure out this thing called life…",
+    message: "Grace Grace Grace\n\nLife brought us together in 2021, we were just trying to figure out this thing called life and what ICAN even entailed in the first place.\n\nThrough this journey I have seen your name personified in your life. You have truly been carried by GRACE.\n\nIt's the way you love people. You do not even let what anyone do change your mind from helping another person. You stay true to who you are. That's emulatable.\n\nMy sincere prayer for you on this special day is that you are always in joy.\n\nAs you have been carried by God may you be carried by Him all the days of your life.\nMay you get married to someone who truly values you and sees you.\n\nTruth is you are a friend everyone should have in their corner.\nYou are a good person.\n\nI love you 🤍❤️",
+    accentColor: "#4BAFC9",
+    media: []
+  },
+
+  {
+    id: 8,
+    icon: "👗",
+    sender: "Adijat",
+    from: "Your Sit Partner & Biggest Supporter",
+    title: "Grace on Her Head",
+    preview: "It's honestly so beautiful how we've gone from secondary school sit partners to grown women still holding on…",
+    message: "Happy Birthday to one of the realest people in my life 🥹\n\nIt's honestly so beautiful how we've gone from secondary school girls as sit partners to grown women still holding onto this friendship, it's funny how we are the closest out of all our friends in school ☺️😅\n\nThrough different phases of life, you have remained such a genuine and supportive person to me, and I don't think I say thank you enough for that.\n\nYou've supported me and my brand in so many ways right from the beginning, I can't even ever not talk about this — Grace and my brand on her head 🤝 5 and 6. Anytime there's a party, event, or special occasion, you always think of me first, and that alone means so much to me. You trusted me even when I was still learning, growing, and trying to fully find my feet in this fashion journey. There were times I would sew things that weren't even perfect or exactly what you wanted, but you never made me feel bad about it 😭 You would still wear it with love, encourage me, and move on like it was nothing. That kind of support, patience, and belief in me is something I can never forget.\n\nHow she's always cheering me on even on my littlest growth 🥹😭 I'm grateful for you my friend 😘\n\nNot everybody gets blessed with friends who genuinely want to see them grow, but you've always been that person for me. Thank you for always showing up, always supporting, always referring me, always believing in me and my dreams even in little ways you may not realize.\n\nOn your birthday, I just want to pray that life rewards your kindness greatly. May this new age bring you peace, happiness, good health, beautiful opportunities, and everything good your heart secretly desires. You deserve genuine love, soft life, and all the beautiful things this world has to offer.\n\nThank you for being my friend through the years. I truly appreciate you more than words can explain.\n\nHappy Birthday once again, my Grace Mfon 🤭",
+    accentColor: "#E8684A",
+    media: [
+      { type: "image", src: "assets/images/wishes/jump-suit.jpeg",
+        caption: "Adijat made the fit — Grace wore it to Kemi's wedding like it was runway ✨" },
+      { type: "image", src: "assets/images/wishes/jump-suit2.jpeg",
+        caption: "Best friends, matching geles, one of them made the outfit — this is 5 and 6 🤝" },
+      { type: "video", src: "assets/videos/wishes/first-dress-sewn-by-adijat.mp4",
+        caption: "The very first time Adijat's needle met fabric for Grace 🪡" },
+      { type: "video", src: "assets/videos/wishes/other-dresses-sewn.mp4",
+        caption: "More custom pieces, more memories stitched with love 🩷" }
+    ]
   }
 
 ];

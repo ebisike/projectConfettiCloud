@@ -118,7 +118,8 @@ function blow() {
 
   hideInstruction();
   blowOutFlames();
-  playSound();
+  // playSound();
+  playBirthdaySong(); /* starts the moment the candles blow */
 
   setTimeout(launchConfetti,   350);
   setTimeout(showCelebration,  900);
@@ -195,31 +196,42 @@ function launchConfetti() {
     '#FFD700', '#A8D8EA', '#FF8C94', '#A8E6CF', '#FFFFFF'
   ];
 
-  for (var i = 0; i < 90; i++) {
+  function spawnPiece(delay) {
     var piece    = document.createElement('div');
     var color    = colors[Math.floor(Math.random() * colors.length)];
     var size     = 5 + Math.random() * 9;
     var isCircle = Math.random() > 0.45;
     var duration = 2.4 + Math.random() * 2.2;
-    var delay    = Math.random() * 1.4;
     var leftPos  = Math.random() * 100;
 
     piece.className = 'confetti-piece';
     piece.style.cssText = [
-      'left:'             + leftPos                          + 'vw',
-      'width:'            + size                             + 'px',
-      'height:'           + (isCircle ? size : size * 1.7)  + 'px',
-      'background:'       + color,
-      'border-radius:'    + (isCircle ? '50%' : '2px'),
-      'animation-duration:'  + duration                     + 's',
-      'animation-delay:'     + delay                        + 's'
+      'left:'                + leftPos                         + 'vw',
+      'width:'               + size                            + 'px',
+      'height:'              + (isCircle ? size : size * 1.7)  + 'px',
+      'background:'          + color,
+      'border-radius:'       + (isCircle ? '50%' : '2px'),
+      'animation-duration:'  + duration                        + 's',
+      'animation-delay:'     + (delay || 0)                   + 's'
     ].join(';');
+
+    /* Self-remove when the fall animation ends — prevents DOM accumulation */
+    piece.addEventListener('animationend', function () { this.remove(); });
 
     container.appendChild(piece);
   }
 
-  /* Clean up DOM after animation finishes */
-  setTimeout(function () { container.innerHTML = ''; }, 7000);
+  /* Initial burst with staggered delays */
+  for (var i = 0; i < 70; i++) {
+    spawnPiece(Math.random() * 1.2);
+  }
+
+  /* Endless loop — top up the canvas every 350ms */
+  setInterval(function () {
+    for (var j = 0; j < 8; j++) {
+      spawnPiece(j * 0.04);
+    }
+  }, 350);
 }
 
 /* ============================================
@@ -236,5 +248,19 @@ function playSound() {
   var promise = audio.play();
   if (promise !== undefined) {
     promise.catch(function () { /* autoplay blocked — silence is fine */ });
+  }
+}
+
+function playBirthdaySong() {
+  var audio = document.getElementById('birthday-audio');
+  if (!audio) return;
+
+  audio.volume = 0.35; /* comfortable level — not too loud */
+
+  var promise = audio.play();
+  if (promise !== undefined) {
+    promise.catch(function () {
+      /* Autoplay blocked — controls are visible so the user can press play */
+    });
   }
 }

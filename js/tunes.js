@@ -8,12 +8,9 @@ var audio          = null;
 var isPlaying      = false;
 var seekingByClick = false;
 
-/* Credits scroll geometry — populated after lyrics render */
-var creditsStartY = 0;
-var creditsEndY   = 0;
-
-/* { el, time } pairs for each lyric line — used for active highlight */
-var lineEls = [];
+/* { el, time } pairs for every lyric line */
+var lineEls        = [];
+var lastActiveIdx  = -1; /* track changes so we only scroll when the line changes */
 
 document.addEventListener('DOMContentLoaded', function () {
   initPlayer();
@@ -50,10 +47,10 @@ function initPlayer() {
     console.error('Audio failed to load (error code ' + code + '):', tunesData.src);
   });
 
-  /* Update progress bar + credits scroll while playing */
+  /* Update progress bar + Spotify-style lyrics while playing */
   audio.addEventListener('timeupdate', function () {
     if (!seekingByClick) updateProgress();
-    updateCreditsScroll();
+    updateLyricsView();
   });
 
   /* Reset when song ends */
@@ -63,9 +60,10 @@ function initPlayer() {
     document.querySelector('.vinyl').classList.remove('spinning');
     setPlayIcon(false);
     updateProgress();
-    /* Return credits to start position */
-    var scroll = document.getElementById('lyrics-scroll');
-    if (scroll) scroll.style.transform = 'translateY(' + creditsStartY + 'px)';
+    lastActiveIdx = -1;
+    lineEls.forEach(function (item) {
+      item.el.classList.remove('lyric-active', 'lyric-d1', 'lyric-d2');
+    });
   });
 
   /* Progress bar — seek on click / tap */
@@ -128,8 +126,9 @@ function formatTime(s) {
 }
 
 /* ============================================
-   CREDITS — render all lyrics into a single
-   scrolling block (movie-credits style)
+   LYRICS — render (Spotify-style)
+   All lines in normal document flow inside a
+   scrollable wrapper. No translate tricks.
    ============================================ */
 
 function renderLyrics() {
@@ -153,71 +152,59 @@ function renderLyrics() {
     scroll.appendChild(el);
   });
 
-  /* Measure geometry once the browser has laid out the lyrics.
-     Use a slightly longer delay on mobile where layout is slower. */
-  setTimeout(setupCreditsScroll, 150);
-}
-
-function setupCreditsScroll() {
-  var wrapper = document.getElementById('lyrics-wrapper');
-  var scroll  = document.getElementById('lyrics-scroll');
-  if (!wrapper || !scroll) return;
-
-  var wH       = wrapper.offsetHeight;
-  var contentH = scroll.offsetHeight;
-
-  /* Start: lyrics block sits just below the visible window */
-  creditsStartY = wH;
-  /* End: last line has cleared the top of the window */
-  creditsEndY   = -(contentH + wH * 0.25);
-
-  /* Place at start position without transition */
-  scroll.style.transition = 'none';
-  scroll.style.transform  = 'translateY(' + creditsStartY + 'px)';
-
-  /* Re-enable transition after forced reflow */
-  void scroll.offsetWidth;
-  scroll.style.transition = '';
+  /* Add half-wrapper-height padding top & bottom so the first and last
+     lines can both be scrolled to the vertical centre of the viewport. */
+  setTimeout(function () {
+    var wrapper = document.getElementById('lyrics-wrapper');
+    if (!wrapper) return;
+    var half = Math.round(wrapper.clientHeight / 2);
+    scroll.style.paddingTop    = half + 'px';
+    scroll.style.paddingBottom = half + 'px';
+  }, 80);
 }
 
 /* ============================================
-   CREDITS — sync scroll position to playback
+   LYRICS — Spotify-style view update
    Called on every timeupdate event.
+   Applies proximity brightness classes and
+   smooth-scrolls the active line to centre.
    ============================================ */
 
-function updateCreditsScroll() {
-  if (!audio.duration) return;
+function updateLyricsView() {
+  if (!lineEls.length) return;
 
-  var scroll = document.getElementById('lyrics-scroll');
-  if (!scroll) return;
+  var t = audio.currentTime;
 
-  /* Re-measure if setup hasn't run yet (creditsStartY still 0) */
-  if (creditsStartY === 0 && creditsEndY === 0) setupCreditsScroll();
-
-  /* Apply scrollSpeed from tunesData (default 1.0 if not set).
-     Values above 1.0 finish the scroll before the song ends. */
-  var speed    = tunesData.scrollSpeed || 1.0;
-  var progress = Math.min((audio.currentTime / audio.duration) * speed, 1);
-  var y        = creditsStartY + progress * (creditsEndY - creditsStartY);
-
-  scroll.style.transform = 'translateY(' + y.toFixed(2) + 'px)';
-
-  highlightActiveLine();
-}
-
-function highlightActiveLine() {
-  var t          = audio.currentTime;
-  var activeItem = null;
-
-  /* Walk backwards — last entry whose time ≤ currentTime is the active one */
+  /* Find the most recent line at or before currentTime */
+  var activeIdx = -1;
   for (var i = lineEls.length - 1; i >= 0; i--) {
-    if (t >= lineEls[i].time) {
-      activeItem = lineEls[i];
-      break;
-    }
+    if (t >= lineEls[i].time) { activeIdx = i; break; }
   }
 
-  lineEls.forEach(function (item) {
-    item.el.classList.toggle('credit-line--active', item === activeItem);
+  /* Apply proximity-brightness classes */
+  lineEls.forEach(function (item, i) {
+    item.el.classList.remove('lyric-active', 'lyric-d1', 'lyric-d2');
+    if (activeIdx < 0) return;
+    var dist = Math.abs(i - activeIdx);
+    if (dist === 0)      item.el.classList.add('lyric-active');
+    else if (dist === 1) item.el.classList.add('lyric-d1');
+    else if (dist <= 3)  item.el.classList.add('lyric-d2');
   });
+
+  /* Scroll the wrapper so the active line sits at its vertical centre —
+     only when the active line changes to avoid fighting the smooth scroll. */
+  if (activeIdx !== lastActiveIdx) {
+    lastActiveIdx = activeIdx;
+
+    if (activeIdx >= 0) {
+      var wrapper  = document.getElementById('lyrics-wrapper');
+      var activeEl = lineEls[activeIdx].el;
+      if (wrapper && activeEl) {
+        var target = activeEl.offsetTop
+                   - wrapper.clientHeight / 2
+                   + activeEl.clientHeight / 2;
+        wrapper.scrollTo({ top: target, behavior: 'smooth' });
+      }
+    }
+  }
 }

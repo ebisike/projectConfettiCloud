@@ -329,6 +329,33 @@ kbd {
   50%       { transform: scale(1.25) translateX(3px); }
 }
 
+/* ---- Birthday song player ---- */
+.bday-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(240, 184, 200, 0.2);
+  animation: fadeInUp 0.5s ease 0.3s both;
+}
+
+.bday-player-label {
+  font-size: var(--text-base);
+  color: rgba(240, 184, 200, 0.75);
+  letter-spacing: 0.04em;
+}
+
+/* Style the native audio player to blend with the dark page */
+.bday-player audio {
+  width: min(300px, 88vw);
+  border-radius: var(--radius-full);
+  outline: none;
+  /* Slight brightness boost so controls are visible on dark bg */
+  filter: invert(1) hue-rotate(180deg) brightness(0.85);
+}
+
 /* ---- Celebration message ---- */
 .celebration {
   display: flex;

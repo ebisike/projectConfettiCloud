@@ -168,8 +168,11 @@ var journeyData = [
       { type: "image", src: "assets/images/journey/my-girl575656659.jpg",    caption: "She puckered up in yellow while he held on behind her" },
       { type: "image", src: "assets/images/journey/my-girl731350948.jpg",    caption: "Both smiling big — they just made each other happy" },
       { type: "image", src: "assets/images/journey/my-girl770377266.jpg",    caption: "Peace signs up, yellow and red, playing around together" },
-      { type: "video", src: "assets/videos/journey/present.mp4",             caption: "A moment in motion 🎬",
-        poster: "assets/images/journey/my-girl00.jpg" }
+
+      { type: "video", src: "assets/videos/journey/VID-20260203-WA0006.mp4",  caption: "A real moment from February 2026 🎬" },
+      { type: "video", src: "assets/videos/journey/VID-20260216-WA0010.mp4",  caption: "Valentine's week — she was glowing 💕" },
+      { type: "video", src: "assets/videos/journey/VID-20260216-WA0011.mp4",  caption: "Still Valentine's week — couldn't get enough 🎬" },
+      { type: "video", src: "assets/videos/journey/VID-20260505-WA0071.mp4",  caption: "24 days before the big 25 🎂" }
     ],
     tag: "And she shines",
     align: "left"
