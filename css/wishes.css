@@ -286,6 +286,200 @@
 .wish-media-strip::-webkit-scrollbar { display: none; }
 .wish-media-strip { scrollbar-width: none; }
 
+/* =============================================
+   SHARED MEDIA PLAYER — audio + video wishes
+   ============================================= */
+
+.media-wish-player {
+  margin-top: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--wish-color-light, rgba(212, 96, 122, 0.06));
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--wish-color, var(--color-primary));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.media-wish-visual {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.media-wish-icon {
+  font-size: 2rem;
+  line-height: 1;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.media-wish-label {
+  font-size: var(--text-lg);
+  color: var(--wish-color, var(--color-primary));
+  line-height: 1.4;
+}
+
+/* ---- Video poster preview ---- */
+.media-wish-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-deep) 0%, var(--wish-color, var(--color-primary)) 100%);
+  cursor: pointer;
+}
+
+.media-wish-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-wish-poster-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  transition: background var(--transition-base);
+}
+
+.media-wish-poster:hover .media-wish-poster-overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.media-wish-poster-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-deep);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.media-wish-poster:hover .media-wish-poster-icon {
+  transform: scale(1.1);
+  background: var(--color-white);
+}
+
+/* Hide poster when video is playing */
+.media-wish-player.video-playing .media-wish-poster {
+  display: none;
+}
+
+/* Show the <video> element itself while playing */
+.media-wish-player .media-wish-el {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  display: none;
+  background: #000;
+}
+
+.media-wish-player.video-playing .media-wish-el {
+  display: block;
+}
+
+/* ---- Controls row ---- */
+.media-wish-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.media-wish-play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--wish-color, var(--color-primary));
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast), box-shadow var(--transition-base);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+.media-wish-play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.media-wish-play-icon {
+  font-size: 1rem;
+  line-height: 1;
+  padding-left: 2px;
+}
+
+.media-wish-progress-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.media-wish-progress-bar {
+  position: relative;
+  height: 6px;
+  background: rgba(0,0,0,0.1);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.media-wish-progress-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  background: var(--wish-color, var(--color-primary));
+  border-radius: var(--radius-full);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.media-wish-progress-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--wish-color, var(--color-primary));
+  border: 2px solid var(--color-white);
+  border-radius: 50%;
+  left: 0%;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity var(--transition-fast), left 0.1s linear;
+}
+
+.media-wish-player:hover .media-wish-progress-thumb,
+.media-wish-player.is-playing .media-wish-progress-thumb {
+  opacity: 1;
+}
+
+.media-wish-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.media-wish-sep {
+  opacity: 0.5;
+}
+
 /* ---- Footer ---- */
 .wishes-footer {
   text-align: center;
