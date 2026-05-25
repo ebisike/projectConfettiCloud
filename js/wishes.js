@@ -14,6 +14,9 @@ var audioEl      = null;
 var audioPlaying = false;
 var isMuted      = false;
 
+/* Gallery data keyed by wish id — populated when media array has items */
+var wishMediaData = {};
+
 document.addEventListener('DOMContentLoaded', function () {
   renderWishes();
   initCardInteractions();
@@ -89,8 +92,8 @@ function buildWishCard(wish, index) {
         /* Expandable content: message or media player */
         '<div class="card-expandable">' +
           '<div class="card-expandable-inner">' +
-            buildWishContent(wish) +
-            (wish.media && wish.media.length ? buildWishMediaHTML(wish.media) : '') +
+          buildWishContent(wish) +
+          (wish.media && wish.media.length ? buildWishMediaHTML(wish.media, wish.id) : '') +
           '</div>' +
         '</div>' +
 
@@ -421,13 +424,17 @@ function formatTime(s) {
    WISH MEDIA — build polaroid strip
    ============================================ */
 
-function buildWishMediaHTML(media) {
+function buildWishMediaHTML(media, wishId) {
   if (!media || media.length === 0) return '';
+
+  var galleryKey = 'wish-' + wishId;
+  wishMediaData[galleryKey] = media;
 
   var html = '<div class="wish-media-strip">';
 
-  media.forEach(function (item) {
+  media.forEach(function (item, idx) {
     var isVideo = item.type === 'video';
+    var navAttrs = ' data-gallery="' + galleryKey + '" data-gallery-idx="' + idx + '"';
 
     var mediaContent = isVideo
       ? '<video class="timeline-video" playsinline preload="none"' +
@@ -437,7 +444,7 @@ function buildWishMediaHTML(media) {
       : '<img src="' + item.src + '" alt="' + escapeHtml(item.caption) + '" loading="lazy">';
 
     html +=
-      '<figure class="timeline-photo' + (isVideo ? ' timeline-photo--video' : '') + '">' +
+      '<figure class="timeline-photo' + (isVideo ? ' timeline-photo--video' : '') + '"' + navAttrs + '>' +
         '<div class="photo-flipper">' +
           '<div class="photo-front">' + mediaContent + '</div>' +
           '<div class="photo-back">' +
@@ -464,6 +471,9 @@ function initWishesLightbox() {
     if (!photo) return;
 
     var captionText = ((photo.querySelector('.photo-caption') || {}).textContent || '').trim();
+    var navKey      = photo.getAttribute('data-gallery');
+    var navIdx      = parseInt(photo.getAttribute('data-gallery-idx'), 10);
+    var navItems    = (navKey && wishMediaData[navKey]) ? wishMediaData[navKey] : [];
 
     if (photo.classList.contains('timeline-photo--video')) {
       var inlineVideo = photo.querySelector('.timeline-video');
@@ -473,12 +483,14 @@ function initWishesLightbox() {
       var sourceEl = inlineVideo.querySelector('source');
       var videoSrc = sourceEl ? sourceEl.getAttribute('src') : '';
       openLightbox({ type: 'video', src: videoSrc, caption: captionText,
-                     poster: inlineVideo.getAttribute('poster') || '' });
+                     poster: inlineVideo.getAttribute('poster') || '',
+                     items: navItems, index: navIdx });
     } else {
       var img = photo.querySelector('.photo-front img');
       if (!img || photo.querySelector('.photo-front.no-image')) return;
       e.stopPropagation();
-      openLightbox({ type: 'image', src: img.src, alt: img.alt, caption: captionText });
+      openLightbox({ type: 'image', src: img.src, alt: img.alt, caption: captionText,
+                     items: navItems, index: navIdx });
     }
   });
 }
