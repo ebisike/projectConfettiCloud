@@ -19,7 +19,7 @@ var appConfig = {
   age:      25,
 
   /* --- Countdown target: 29th May 2026, midnight --- */
-  countdownTarget: new Date("2026-05-26T16:00:00"),
+  countdownTarget: new Date("2026-05-29T16:00:00"),
 
   /* --- Candle page --- */
   candleCount: 25,
