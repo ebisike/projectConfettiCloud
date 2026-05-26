@@ -88,6 +88,10 @@ function advanceCarousel() {
    COUNTDOWN TIMER
    ============================================ */
 
+/* Threshold for "few hours left" romantic mode: 12 hours in ms */
+var FEW_HOURS_MS = 12 * 60 * 60 * 1000;
+var birthdayModeActive = false;
+
 function initCountdown() {
   updateCountdown();
   countdownInterval = setInterval(updateCountdown, 1000);
@@ -117,6 +121,37 @@ function updateCountdown() {
   setUnit('cd-hours',   hours);
   setUnit('cd-minutes', minutes);
   setUnit('cd-seconds', seconds, true);
+
+  /* When only a few hours remain, switch to romantic birthday mode */
+  if (diff <= FEW_HOURS_MS) {
+    showBirthdayMode();
+  }
+}
+
+/* ---- Birthday mode: shown when <= 12 hours left ---- */
+function showBirthdayMode() {
+  if (birthdayModeActive) return;
+  birthdayModeActive = true;
+
+  var forLabel    = document.getElementById('for-label');
+  var heroName    = document.getElementById('hero-name');
+  var approaching = document.getElementById('approaching-text');
+  var hint        = document.getElementById('countdown-hint');
+  var dateEl      = document.getElementById('countdown-date');
+
+  if (forLabel)    forLabel.style.display = 'none';
+  if (approaching) approaching.style.display = 'none';
+  if (dateEl)      dateEl.style.display = 'none';
+
+  if (heroName) {
+    heroName.textContent = 'Happy Birthday, Grace';
+    heroName.classList.add('romantic-glow');
+  }
+
+  if (hint) {
+    hint.textContent = 'The celebration is about to begin — the live video call will open when the timer hits zero...';
+    hint.classList.add('celebration-imminent');
+  }
 }
 
 function setUnit(id, value, animatePop) {
@@ -142,13 +177,15 @@ function setUnit(id, value, animatePop) {
 
 function showZeroState() {
   var display  = document.getElementById('countdown-display');
-  var dateEl   = document.querySelector('.countdown-date');
+  var dateEl   = document.getElementById('countdown-date');
   var header   = document.querySelector('.countdown-header');
+  var hint     = document.getElementById('countdown-hint');
   var passcode = document.getElementById('passcode-screen');
 
   if (display)  display.style.display  = 'none';
   if (dateEl)   dateEl.style.display   = 'none';
   if (header)   header.style.display   = 'none';
+  if (hint)     hint.style.display     = 'none';
 
   if (passcode) {
     passcode.removeAttribute('hidden');

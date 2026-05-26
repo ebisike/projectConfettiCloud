@@ -51,14 +51,14 @@
     <main class="countdown-content">
       <!-- Name & intro header -->
       <header class="countdown-header anim-fadeInDown">
-        <span class="for-label script">For the one and only,</span>
-        <h1 class="hero-name">Grace</h1>
-        <p class="approaching-text">Your birthday is almost here&hellip;</p>
+        <span class="for-label script" id="for-label">For the one and only,</span>
+        <h1 class="hero-name" id="hero-name">Grace</h1>
+        <p class="approaching-text" id="approaching-text">Your birthday is almost here&hellip;</p>
       </header>
 
       <!-- Live countdown timer -->
       <div class="countdown-grid anim-fadeInUp delay-2" id="countdown-display">
-        <div class="countdown-unit">
+        <div class="countdown-unit" id="cd-days-unit">
           <span class="count-number" id="cd-days">00</span>
           <span class="count-label">Days</span>
         </div>
@@ -79,8 +79,13 @@
         </div>
       </div>
 
+      <!-- Hint: celebration begins when timer reaches zero -->
+      <p class="countdown-hint anim-fadeIn delay-4" id="countdown-hint">
+        The celebration begins when the timer reaches zero — a live video call will open for guests to join...
+      </p>
+
       <!-- Target date -->
-      <p class="countdown-date script anim-fadeIn delay-4">29th May 2026</p>
+      <p class="countdown-date script anim-fadeIn delay-4" id="countdown-date">29th May 2026</p>
 
       <!-- Passcode screen — replaces redirect when countdown hits zero -->
       <div class="passcode-screen" id="passcode-screen" hidden>
