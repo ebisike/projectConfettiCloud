@@ -29,9 +29,34 @@
 
 var wishesData = [
 
-
   {
     id: 1,
+    type: "audio",
+    icon: "👩‍👧",
+    sender: "Mum",
+    from: "From Your Mum",
+    title: "A Mother's Prayer",
+    preview: "Press play to hear a heartfelt birthday prayer from your mum...",
+    src: "assets/audio/mums-wish.mp3",
+    accentColor: "#E87BB0",
+    media: []
+  },
+
+  {
+    id: 2,
+    type: "audio",
+    icon: "👨‍👧",
+    sender: "Dad",
+    from: "From Your Dad",
+    title: "A Father's Blessing",
+    preview: "Press play to hear a special birthday blessing from your dad...",
+    src: "assets/audio/dads-wish.mp3",
+    accentColor: "#4A90E8",
+    media: []
+  },
+
+  {
+    id: 3,
     type: "audio",
     icon: "🧙‍♀️",
     sender: "Zainab",
@@ -50,7 +75,7 @@ var wishesData = [
   },
 
   {
-    id: 2,
+    id: 4,
     type: "text",
     icon: "❤️",
     sender: "Jide",
@@ -69,7 +94,7 @@ var wishesData = [
   },
 
   {
-    id: 3,
+    id: 5,
     type: "text",
     icon: "🌟",
     sender: "Lizara",
@@ -90,7 +115,7 @@ var wishesData = [
   },
 
   {
-    id: 4,
+    id: 6,
     type: "text",
     icon: "💖",
     sender: "Toyin",
@@ -109,7 +134,7 @@ var wishesData = [
   },
 
   {
-    id: 5,
+    id: 7,
     type: "text",
     icon: "💛",
     sender: "Mayourwah",
@@ -122,7 +147,7 @@ var wishesData = [
   },
 
   {
-    id: 6,
+    id: 8,
     type: "text",
     icon: "🙌",
     sender: "Oluwafemi",
@@ -135,7 +160,7 @@ var wishesData = [
   },
 
   {
-    id: 7,
+    id: 9,
     type: "text",
     icon: "🎉",
     sender: "Godstar",
@@ -148,7 +173,7 @@ var wishesData = [
   },
 
   {
-    id: 8,
+    id: 10,
     type: "text",
     icon: "💫",
     sender: "Sarah",
@@ -161,7 +186,7 @@ var wishesData = [
   },
 
   {
-    id: 9,
+    id: 11,
     type: "text",
     icon: "🤍",
     sender: "Dynamic",
@@ -174,7 +199,7 @@ var wishesData = [
   },
 
   {
-    id: 10,
+    id: 12,
     type: "audio",
     icon: "🎙️",
     sender: "Favour",
@@ -186,9 +211,8 @@ var wishesData = [
     media: []
   },
 
-
   {
-    id: 11,
+    id: 13,
     type: "text",
     icon: "🎉",
     sender: "Charity",
@@ -200,9 +224,8 @@ var wishesData = [
     media: []
   },
 
-
   {
-    id: 12,
+    id: 14,
     type: "text",
     icon: "👗",
     sender: "Adijat",
@@ -230,24 +253,53 @@ var wishesData = [
       }
     ]
   },
-
-
+ 
   {
-    id: 13,
-    type: "video",
-    icon: "🎬",
-    sender: "George",
-    from: "A Video Message Just for You",
-    title: "Happy Birthday, Grace!",
-    preview: "Press play to watch a special birthday video message from George...",
-    src: "assets/videos/wishes/George-wish.mp4",
-    poster: "",
-    accentColor: "#4A90E8",
+    id: 15,
+    type: "text",
+    icon: "💕",
+    sender: "Vickky",
+    from: "From Vickky",
+    title: "A Woman of Much Grace",
+    preview: "Happy birthday, Grace! You are, indeed, a woman of much grace...",
+    message: "Happy birthday, Grace!\nYou are, indeed, a woman of much grace.\nYou are beautiful, kind, supportive, caring, smart, and loving.\nYour achievements are indeed notable and admirable.\nI pray for God's mercies, blessings, favour, and GRACE upon your life in this new year. In this year, God will give you more of Him, He will draw you to Himself, and there will be evidences of His omnipresence in your life.\nCheers to a new and beautiful year ahead, baby girl! ❤️🥂",
+    accentColor: "#D4607A",
     media: []
   },
 
+  {
+    id: 16,
+    type: "audio",
+    icon: "🤴",
+    sender: "John",
+    from: "From Your Elder Brother",
+    title: "A Brother's Love",
+    preview: "Press play to hear a special birthday message from your big brother John...",
+    src: "assets/audio/john-wish-bby.mp3",
+    accentColor: "#E8A84A",
+    media: []
+  },
 
-
+   {
+    id: 17,
+    type: "video",
+    icon: "👑",
+    sender: "George",
+    from: "From Your Love",
+    title: "To My Chinenye",
+    preview: "Press play to watch a birthday video message from George to his Chinenye...",
+    src: "assets/videos/wishes/George-wish.mp4",
+    poster: "",
+    accentColor: "#D4607A",
+    media: [
+      { type: "image", src: "assets/images/wishes/DSC_5042.jpg", caption: "My beautiful Chinenye ✨" },
+      { type: "image", src: "assets/images/wishes/DSC_5043.jpg", caption: "Elegant as ever 🌹" },
+      { type: "image", src: "assets/images/wishes/Snapchat-41544755.jpg", caption: "That smile that melts me every time 😍" },
+      { type: "image", src: "assets/images/wishes/ankara-style1.jpg", caption: "Queen in her ankara 👑" },
+      { type: "image", src: "assets/images/wishes/ankara-style2.jpg", caption: "Grace personified 💕" },
+      { type: "image", src: "assets/images/wishes/ankara-style3.jpg", caption: "My heart in human form ❤️" }
+    ]
+  },
 
 
 ];
